@@ -41,7 +41,6 @@ def test_classifier(clf, dataset, feature_list, folds = 1000):
         for jj in test_idx:
             features_test.append( features[jj] )
             labels_test.append( labels[jj] )
-        
         ### fit the classifier using training set, and test on test set
         clf.fit(features_train, labels_train)
         predictions = clf.predict(features_test)
@@ -79,7 +78,7 @@ DATASET_PICKLE_FILENAME = "my_dataset.pkl"
 FEATURE_LIST_FILENAME = "my_feature_list.pkl"
 
 def dump_classifier_and_data(clf, dataset, feature_list):
-    with open(CLF_PICKLE_FILENAME, "w") as clf_outfile:
+    with open(CLF_PICKLE_FILENAME, "wb") as clf_outfile:
         pickle.dump(clf, clf_outfile)
     with open(DATASET_PICKLE_FILENAME, "w") as dataset_outfile:
         pickle.dump(dataset, dataset_outfile)
@@ -87,12 +86,12 @@ def dump_classifier_and_data(clf, dataset, feature_list):
         pickle.dump(feature_list, featurelist_outfile)
 
 def load_classifier_and_data():
-    with open(CLF_PICKLE_FILENAME, "r") as clf_infile:
-        clf = pickle.load(clf_infile)
     with open(DATASET_PICKLE_FILENAME, "r") as dataset_infile:
         dataset = pickle.load(dataset_infile)
     with open(FEATURE_LIST_FILENAME, "r") as featurelist_infile:
         feature_list = pickle.load(featurelist_infile)
+    with open(CLF_PICKLE_FILENAME, "rb") as clf_infile:
+        clf = pickle.load(clf_infile)
     return clf, dataset, feature_list
 
 def main():
